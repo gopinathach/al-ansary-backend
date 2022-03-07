@@ -1,6 +1,11 @@
-const app = require("express")();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http, { cors: { origin: "*" } });
+const http = require("http").createServer(/* app */);
+const io = require("socket.io")(
+  http,
+  {
+    cors: true,
+    origins: ["*", "http://127.0.0.1:3000", "http://localhost:3000"],
+  } /* { cors: { origin: "*" } } */
+);
 const { Pool, Client } = require("pg");
 const { server } = require("./util/server");
 const { credentials } = require("./util/credentials");
