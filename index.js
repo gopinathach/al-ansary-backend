@@ -1,17 +1,30 @@
-const http = require("http").createServer(/* app */);
+const http = require("http").createServer(
+  /* app */ (req, res) => {
+    let htmlFile = "";
+    switch (req.url) {
+      case "/":
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.write("Node.js says hello!"); //write a response to the client
+        res.end();
+        break;
+      default:
+        break;
+    }
+  }
+);
 const io = require("socket.io")(
   http,
   {
     cors: true,
     origins: ["*", "http://127.0.0.1:3000", "http://localhost:3000"],
     // allowEIO3: true,
-    transports: [
-      "websocket",
-      "flashsocket",
-      "htmlfile",
-      "xhr-polling",
-      "jsonp-polling",
-    ],
+    // transports: [
+    //   "websocket",
+    //   "flashsocket",
+    //   "htmlfile",
+    //   "xhr-polling",
+    //   "jsonp-polling",
+    // ],
   } /* { cors: { origin: "*" } } */
 );
 const { Pool, Client } = require("pg");
