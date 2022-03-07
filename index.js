@@ -68,14 +68,14 @@ async function logOfNow() {
 }
 
 io.on("connection", (socket) => {
-  socket.on("message", ({ name, message }) => {
-    console.log("{ name, message }", { name, message });
-    io.emit("message", { name, message });
-  });
-  socket.on("chats", (chats) => {
-    console.log("chats", chats);
-    io.emit("chats", chats);
-  });
+  // socket.on("message", ({ name, message }) => {
+  //   console.log("{ name, message }", { name, message });
+  //   io.emit("message", { name, message });
+  // });
+  // socket.on("chats", (chats) => {
+  //   console.log("chats", chats);
+  //   io.emit("chats", chats);
+  // });
   socket.on("receipt", async (stringValue) => {
     console.log("receipt", stringValue);
     const poolResult = await poolDemo();
