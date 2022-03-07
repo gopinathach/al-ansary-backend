@@ -67,25 +67,41 @@ async function logOfNow() {
   console.log("Time with client: " + clientResult);
 }
 
-io.on("connection", (socket) => {
-  // socket.on("message", ({ name, message }) => {
-  //   console.log("{ name, message }", { name, message });
-  //   io.emit("message", { name, message });
-  // });
-  // socket.on("chats", (chats) => {
-  //   console.log("chats", chats);
-  //   io.emit("chats", chats);
-  // });
-  socket.on("receipt", async (stringValue) => {
-    console.log("receipt", stringValue);
-    const poolResult = await poolDemo();
-    console.log("poolResult", poolResult);
-    io.emit("receipt", poolResult);
-  });
-});
+// io.on("connection", (socket) => {
+//   // socket.on("message", ({ name, message }) => {
+//   //   console.log("{ name, message }", { name, message });
+//   //   io.emit("message", { name, message });
+//   // });
+//   // socket.on("chats", (chats) => {
+//   //   console.log("chats", chats);
+//   //   io.emit("chats", chats);
+//   // });
+//   socket.on("receipt", async (stringValue) => {
+//     console.log("receipt", stringValue);
+//     const poolResult = await poolDemo();
+//     console.log("poolResult", poolResult);
+//     io.emit("receipt", poolResult);
+//   });
+// });
 
 http.listen(4000, async function () {
   await logOfNow();
+  io.on("connection", (socket) => {
+    // socket.on("message", ({ name, message }) => {
+    //   console.log("{ name, message }", { name, message });
+    //   io.emit("message", { name, message });
+    // });
+    // socket.on("chats", (chats) => {
+    //   console.log("chats", chats);
+    //   io.emit("chats", chats);
+    // });
+    socket.on("receipt", async (stringValue) => {
+      console.log("receipt", stringValue);
+      const poolResult = await poolDemo();
+      console.log("poolResult", poolResult);
+      io.emit("receipt", poolResult);
+    });
+  });
   console.log("listening on port 4000");
 });
 
