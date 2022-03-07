@@ -4,6 +4,7 @@ const io = require("socket.io")(
   {
     cors: true,
     origins: ["*", "http://127.0.0.1:3000", "http://localhost:3000"],
+    allowEIO3: true,
   } /* { cors: { origin: "*" } } */
 );
 const { Pool, Client } = require("pg");
