@@ -101,6 +101,10 @@ http.listen(4000, async function () {
       console.log("poolResult", poolResult);
       io.emit("receipt", poolResult);
     });
+
+    socket.on("disconnect", function () {
+      console.log("Client disconnected.");
+    });
   });
   console.log("listening on port 4000");
 });
