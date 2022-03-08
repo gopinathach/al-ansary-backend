@@ -55,7 +55,6 @@ async function clientDemo() {
   await client.connectClient(lclient);
   const nowRes = await now(lclient);
   await client.endClient(lclient);
-
   return nowRes.rows[0]["now"];
 }
 
@@ -67,34 +66,9 @@ async function logOfNow() {
   console.log("Time with client: " + clientResult);
 }
 
-// io.on("connection", (socket) => {
-//   // socket.on("message", ({ name, message }) => {
-//   //   console.log("{ name, message }", { name, message });
-//   //   io.emit("message", { name, message });
-//   // });
-//   // socket.on("chats", (chats) => {
-//   //   console.log("chats", chats);
-//   //   io.emit("chats", chats);
-//   // });
-//   socket.on("receipt", async (stringValue) => {
-//     console.log("receipt", stringValue);
-//     const poolResult = await poolDemo();
-//     console.log("poolResult", poolResult);
-//     io.emit("receipt", poolResult);
-//   });
-// });
-
 http.listen(4000, async function () {
   await logOfNow();
   io.on("connection", (socket) => {
-    // socket.on("message", ({ name, message }) => {
-    //   console.log("{ name, message }", { name, message });
-    //   io.emit("message", { name, message });
-    // });
-    // socket.on("chats", (chats) => {
-    //   console.log("chats", chats);
-    //   io.emit("chats", chats);
-    // });
     socket.on("receipt", async (stringValue) => {
       console.log("receipt", stringValue);
       const poolResult = await poolDemo();
@@ -105,30 +79,12 @@ http.listen(4000, async function () {
     socket.on("disconnect", function () {
       console.log("Client disconnected.");
     });
+
+    socket.on("close", function () {
+      console.log("Client closed.");
+    });
   });
   console.log("listening on port 4000");
 });
 
 // server(http, port);
-
-// const client = new Client({
-//   user: "fgnmbpckyjybzk" /* "postgres" */,
-//   host: "ec2-3-225-79-57.compute-1.amazonaws.com" /* "localhost" */,
-//   database: "d26351tb6aan5r" /* "nodedemo" */,
-//   password:
-//     "862b164a6b8db41ea36a75786411f948c4e3e84b22ddcd7fe742c92f07adb6fb" /* "yourpassword" */,
-//   port: 5432,
-//   // connectionString:"postgres://fgnmbpckyjybzk:862b164a6b8db41ea36a75786411f948c4e3e84b22ddcd7fe742c92f07adb6fb@ec2-3-225-79-57.compute-1.amazonaws.com:5432/d26351tb6aan5r",
-//   ssl: { rejectUnauthorized: false }
-// });
-// console.log("client", client);
-// client.connect();
-
-// client.query(`select * from company`, (err, res) => {
-//   if (!err) {
-//     console.log("res", res.rows);
-//   } else {
-//     console.log("err", err.message);
-//   }
-//   client.end;
-// });
